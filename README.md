@@ -1,24 +1,17 @@
 # Physics-Based Compact Models in Verilog-A
 
-Coursework, EE5341 MOS Device Modelling, IIT Madras (Aug – Oct 2026)
+Coursework, EE5341 MOS Device Modelling & Characterisation, IIT Madras (Aug – Sep 2026)
+Assignments 2 and 3 done with M Kalanidhi Maran and Sri Gayathri V.
 
-📄 **[Read the full report (PDF)](report.pdf)**
+| Model | Physics | Result | Report |
+|---|---|---|---|
+| Silicon resistor (intrinsic and n-doped) | n_i(T) from N_c, N_v, E_g; phonon-limited mobility μ ∝ T^-1.5 | Intrinsic: R falls ~5 orders of magnitude from 300 to 600 K. n-doped (N_D = 2×10¹⁷ cm⁻³): R rises from 115.7 to 327.4 Ω as mobility drops | [A1](A1_silicon_resistor.pdf) |
+| Diode | Shockley equation | Full-wave bridge rectifier, 5 V / 50 Hz input: 3.7 V peak output after two diode drops | [A2](A2_diode_rectifier.pdf) |
+| MOS capacitor | Surface potential solved by Newton–Raphson; quasi-static gate charge | LF and HF C-V across N_a = 10¹⁷–5×10¹⁸ cm⁻³ and t_ox = 5–15 nm; Debye-length extraction; V_FB = −1 V shift | [A3](A3_moscap_cv.pdf) |
 
-Physics-based Verilog-A models written from first principles and simulated in Qucs Studio.
+## Numerical note
 
-## Models
-
-| Model | Physics included | Validation |
-|---|---|---|
-| Silicon resistor | Temperature-dependent mobility and resistivity | R(T) against analytical expression |
-| Diode | Shockley equation with series resistance | Used in a full-wave bridge rectifier |
-| MOS capacitor | Depletion, inversion, flat-band shift | High- and low-frequency C-V; Debye length against theory |
-
-## MOS capacitor sweeps
-
-- Substrate doping: 10¹⁷ – 5×10¹⁸ cm⁻³
-- Oxide thickness: 5 – 15 nm
-- Flat-band voltage shift modelled; extrinsic Debye length checked against the analytical value
+The Newton–Raphson loop for the surface potential originally used a relative error, which diverges at flat band (ψ_s → 0). The final model uses an absolute error metric, which stays stable through V_gb = V_FB.
 
 ## Tools
 
